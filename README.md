@@ -1,6 +1,7 @@
 <div style="text-align: center;">
 	<img src="sc.png" style="width: 60%;">
 </div>
+
 # jc_file_manager
 Simple Project File Manager
 
