@@ -177,7 +177,7 @@ class Lib {
 			["wav", "mp3", "oog"],
 			["mp4", "avi", "3gp", "webm"],
 			["jpg", "jpeg", "png"],
-			["folder"]
+			["folder", "apk"]
 		];
 
 		$fileType = strtolower($ext);
