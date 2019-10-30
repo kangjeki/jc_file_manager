@@ -1,0 +1,122 @@
+.navbar {
+	background: #23e420  !important;
+}
+
+/*----------------------------------------------------------------------------------*/
+.fas[red] {
+    color: red !important;
+}
+.fas[darkred] {
+    color: darkred !important;
+}
+.fas[green] {
+    color: green !important;
+}
+.fas[lightgreen] {
+    color: lightgreen !important;
+}
+.fas[green] {
+    color: green !important;
+}
+.fas[blue] {
+    color: blue !important;
+}
+.fas[lightblue] {
+    color: lightblue !important;
+}
+.fas[darkblue] {
+    color: darkblue !important;
+}
+.fas[yellow] {
+    color: yellow !important;
+}
+.fas[orange] {
+    color: orange !important;
+}
+.fas[cyan] {
+    color: cyan !important;
+}
+.fas[magenta] {
+    color: magenta !important;
+}
+.fas[purple] {
+    color: purple !important;
+}
+.fas[salmon] {
+    color: salmon !important;
+}
+.fas[white] {
+    color: white !important;
+}
+.fas[black] {
+    color: black !important;
+}
+
+
+/*----------------------------------------------------------------------------------*/
+.footer-container {
+	margin: 0; padding: 10px 0px;
+}
+.footer-container .block-licence {
+	margin: 0; padding: 15px;
+	text-align: center;
+	font-size: 15px;
+	background: #f9f9f9;
+}
+
+/*----------------------------------------------------------------------------------*/
+.template-list {
+	margin: 0; padding: 0;
+	display: inline-block;
+}
+.template-item {
+	margin: 0; padding: 5px;
+	display: inline-block;
+	position: relative;
+	height: 240px;
+	width: 350px;
+	border: 1px #bbb solid;
+	margin-right: 10px;
+	margin-bottom: 15px;
+}
+.template-item .template-url {
+	margin: 0; padding: 5px 10px;
+	text-decoration: none;
+	font-size: 15px;
+}
+
+.template-item .template-url i {
+	color: #F1BB28;
+	margin-right: 5px;
+	font-size: 20px;
+	padding: 0;
+}
+
+.template-item .preview {
+	width:600px; height:400px;
+	-webkit-transform:scale(.5);
+	-ms-transform:scale(.5);
+	transform:scale(.5);
+	-webkit-transform-origin:0 0; 
+	-ms-transform-origin:0 0; 
+	transform-origin:0 0; 
+	border:4px solid #ddd;
+	margin:0 0 0;
+	position: absolute;
+}
+
+.template-item .del-template {
+	position: absolute;
+	top: 5px; right: 5px;
+}
+
+/*----------------------------------------------------------------------------------*/
+/*Index*/
+#index .list-dir {
+	border: 1px #ddd solid;
+	box-sizing: border-box;
+	overflow: auto;
+}
+#index .file-link {
+	display: flex;
+}

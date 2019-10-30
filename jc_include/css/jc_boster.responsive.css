@@ -1,0 +1,187 @@
+/*@media (min-width: 576px) {
+	.col, .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+		width: 100%;
+		margin: 0;
+		padding-right: 0px;
+		padding-left: 0px;
+		position: relative;
+		-webkit-flex: 1;
+		-ms-flex: 1;
+		flex: 1;
+		word-wrap: break-word;
+		box-sizing: border-box;
+	}
+	body {
+		background: green;
+	}
+
+}*/
+
+/*// Medium devices (tablets, 768px and up)*/
+/*@media (min-width: 768px) {
+	.col, .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+		width: 100%;
+	}
+}*/
+
+/*// Large devices (desktops, 992px and up)*/
+/*@media (min-width: 992px) { ... }
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { ... }*/
+
+
+
+
+
+
+
+
+/*@media (max-width: 575.98px) */
+
+@media (max-width: 767.98px) {
+	body {
+		/*background: green;*/
+	}
+
+	.container {
+		width: 100%;
+		display: inline-block;
+	}
+
+	.header[mode="fixed"] + .container {
+		margin-top: 50px;
+	}
+	.content-wrapper {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	.row {
+		margin: 0; padding: 0px;
+		display: block;
+	}
+	.col, .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+		max-width: 100%;
+		text-overflow: clip;
+		word-wrap: break-word;
+		display: inline-block;
+		width: 100%;
+		position: relative;
+	}
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*header*/
+	.header {
+		height: auto;
+		max-height: 50px;
+		transition: max-height 0.3s;
+	}
+
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*sidebar*/
+	.sidebar {
+		position: fixed;
+		max-width: 0;
+		overflow: hidden;
+		text-overflow: clip;
+		box-sizing: border-box;
+		transition: max-width 0.2s;
+		z-index: 1000;
+		bottom: 0;
+		top: 50px;
+		background: #333;
+		
+	}
+	.sidebar a {
+		color: #fff !important;
+	}
+	.sidebar i {
+		color: #fff !important;
+	}
+	.sidebar-fixed .nav {
+		position: relative;
+		top: 0px;
+	}
+	.sidebar-show {
+		max-width: 80%;
+	}
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*navigasi*/
+	.nav {
+		max-height: -webkit-fill-available;
+		overflow: auto;
+	}
+
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*navbar*/
+	.navbar {
+		display: inline-block;
+		height: fit-content;
+	}
+	.navbar-brand {
+		display: inline-flex;
+		width: 100%;
+	}
+	.navbar-left {
+		display: inline-block;
+		padding: 0 10px;
+	}
+	.navbar-right {
+		display: inline-block;
+		padding: 0 10px;
+	}
+	.navbar-item {
+		display: inline-block;
+		width: 100%;
+		padding: 0px;
+	}
+
+	.navbar-brand .brand {
+		width: 100%;
+		margin: auto;
+		text-align: center;
+	}
+	.navbar-toggle {
+		display: inline-block;
+		position: relative;
+		line-height: 50px;
+	}
+
+	.navbar-toggle .btn-sidebar {
+		position: relative;
+		background: transparent;
+		font-size: 25px;
+	}
+	.navbar-toggle .btn-navbar {
+		position: relative;
+		background: transparent;
+		font-size: 25px;
+	}
+	.navbar-show {
+		max-height: 700px;
+	}
+
+
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*box-content*/
+	.box-body {
+		overflow: overlay;
+	}
+
+	/*-------------------------------------------------------------------------------------------------------*/
+	/*card*/
+	.box-card[grid="1"], .box-card[grid="2"], .box-card[grid="3"], .box-card[grid="4"], .box-card[grid="5"], .box-card[grid="6"],
+	.box-card[grid="7"], .box-card[grid="8"], .box-card[grid="9"], .box-card[grid="10"], .box-card[grid="11"], .box-card[grid="12"] {
+		grid-template-columns: auto;
+	}
+}
+
+/*// Small devices (landscape phones, less than 768px)*/
+/*@media (max-width: 767.98px) { ... }*/
+
+/*// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) { ... }
+
+// Large devices (desktops, less than 1200px)
+@media (max-width: 1199.98px) { ... }
