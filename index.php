@@ -15,7 +15,7 @@ $Load->containerTop();
 	# ending load not use "/"
 	# This cant access parent directory host
 -------------------------------------------------------------------------------------------*/
-const PATH 		= ""; // set directory here 
+const PATH 		= "../../my_fun"; // set directory here 
 
 // Set Default Directory Path --------------
 $uriLoad 		= PATH;
