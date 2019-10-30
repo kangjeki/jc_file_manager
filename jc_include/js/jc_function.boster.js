@@ -46,7 +46,7 @@ function jc_app() {
 								nvL.style.cssText = `top: ${hH + bA}px; max-width: ${nvL.parentElement.clientWidth}px;`;
 							}
 							if (nvR !== null) {
-								nvR.style.cssText = `top: ${hH + bA}px; max-width: ${nvR.parentElement.clientWidth}px;`;
+								nvR.style.cssText = `top: ${hH + bA}px; max-width: ${nvR.parentElement.clientWidth}px; border-left: 1px #ddd solid;`;
 							}
 						}
 						else {

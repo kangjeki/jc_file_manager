@@ -26,6 +26,24 @@ class Lib {
 			}
 		}
 	}
+
+	public function dirSize($size) {
+		$reSize 	= "";
+		if ( (double)$size > 999 && (double)$size <= 999999 ) {
+			$reSize = (string)( round( (double)$size / 1000, 2 ) ) . " KB";
+		}
+		else if ( (double)$size > 999999 && (double)$size <= 999999999 ) {
+			$reSize = (string)( round( (double)$size / 1000000, 2 ) ) . " MB";
+		}
+		else if ( (double)$size > 999999999 && (double)$size <= 999999999999 ) {
+			$reSize = (string)( round( (double)$size / 1000000000, 2 ) ) . " GB";
+		}
+		else {
+			$reSize = (string)( (double)$size ) . " B";
+		}
+		return $reSize;
+	}
+
 	public function convertText($data) {
 		$data 	= str_replace("</", ":TA2:", $data);
 		$data 	= str_replace("<", ":TA1:", $data);
@@ -74,7 +92,7 @@ class Lib {
 		$data = str_replace("\n", "<br>", $data);
 		$hasil = str_replace("	", "&nbsp;", $data);
 		
-		return "<div id='out'><div class='code-block'><code>" . $hasil . "</code></div></div>";
+		return "<div id='out'><button class='btn btn-noOut-info' onclick='editFile(this)'><i class='fas fa-edit'></i> edti</button><button class='btn btn-noOut-info' onclick='saveEditFile(this)'><i class='fas fa-save'></i> save</button><button class='btn btn-noOut-info' onclick='visitFile(this)'><i class='fas fa-eye'></i> visit</button><div class='clear'></div><div class='clear'></div><div class='code-block' contenteditable='false'>" . $hasil . "</div></div>";
 	}
 	private $totalSize 		= 0,
 			$totalFolder 	= 0,
@@ -153,15 +171,17 @@ class Lib {
 	}
 
 	public function exist_fileType($ext) {
-		$jenis 	= [0 => "text", 1 => "audio", 2 => "video", 3 => "image"];
+		$jenis 	= [0 => "text", 1 => "audio", 2 => "video", 3 => "image", 4 => "Folder"];
 		$mime 	= [
-			["php", "html", "css", "txt", "js", "jcm", "jc"],
+			["php", "html", "css", "txt", "js", "jcm", "jc", "json", "md"],
 			["wav", "mp3", "oog"],
 			["mp4", "avi", "3gp", "webm"],
-			["jpg", "jpeg", "png"]
+			["jpg", "jpeg", "png"],
+			["folder"]
 		];
 
 		$fileType = strtolower($ext);
+		$fileType = str_replace(".", "", $fileType);
 		$dataType = [];
 
 		foreach ($mime as $key => $value) {

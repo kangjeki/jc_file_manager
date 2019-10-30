@@ -175,8 +175,6 @@
 			iY = (iH - 60) / 2,
 			iX = (iW - 390) / 2;
 
-			console.log(iX);
-
 		fD.style.cssText = `
 			position: fixed;
 			z-index: 555555;

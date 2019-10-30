@@ -117,25 +117,30 @@
 	box-sizing: content-box;
 	display: flex;
 }
+#index .dir-preview {
+	margin: 0; padding: 10px;
+	box-sizing: border-box;
+	width: 100%;
+}
 #index .file-link {
 	display: flex;
 }
-
 #out {
 	background: #eee;
 	padding: 5px;
 	width: 100%;
 }
-#out code {
+#out .code-block {
 	word-break: normal;
-	margin-top: 10px;
+	padding: 10px;
+	font-size: 13px;
 }
-#out code .cb {
+#out .code-block .cb {
 	color: #3D39AA;
 }
-#out code .cl {
+#out .code-block .cl {
 	color: #3C8AC7;
 }
-#out code .co {
+#out .code-block .co {
 	color: #D16B10;
 }

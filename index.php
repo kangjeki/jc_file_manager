@@ -15,7 +15,7 @@ $Load->containerTop();
 	# ending load not use "/"
 	# This cant access parent directory host
 -------------------------------------------------------------------------------------------*/
-const PATH 		= ""; // set directory first load on content here 
+const PATH 		= ""; // set first directory load on content here 
 
 // Set Default Directory Path --------------
 $uriLoad 		= PATH;
@@ -28,7 +28,8 @@ $getDirectory 	= $Lib->directoryInfo( $uriLoad );
 
 // Root Sidebar Hirarky Menu -------------------------------------------------------------
 // change if you use other server
-$sidebarRoot 	= glob("C:/xampp/htdocs/" . "*");
+$pathSidebar 	= "C:/xampp/htdocs";
+$sidebarRoot 	= glob( $pathSidebar . "/*");
 
 ?>
 
@@ -90,7 +91,7 @@ $sidebarRoot 	= glob("C:/xampp/htdocs/" . "*");
 								// new Load library drectory 
 								$Lib3 		= new Lib();
 								$getDirInfo = $Lib3->directoryInfo($dirData);
-								$dirSize 	= ceil($getDirInfo["size"] / 1000);
+								$dirSize 	= $Lib3->dirSize( $getDirInfo["size"] );
 							?>
 							<tr>
 								<td>
@@ -108,7 +109,7 @@ $sidebarRoot 	= glob("C:/xampp/htdocs/" . "*");
 									<?= $getDirInfo["type"]; ?>
 								</td>
 								<td>
-									<?= $dirSize; ?>Kb
+									<?= $dirSize; ?>
 								</td>
 							</tr>
 						<?php endforeach; ?>
@@ -122,14 +123,19 @@ $sidebarRoot 	= glob("C:/xampp/htdocs/" . "*");
 					
 					//Access mime type of file 
 					$mime 	= $Lib->exist_fileType( end($ext) );
+
+					// if this part is error try to combin with your serve
+					$path 		= str_replace($pathSidebar, '', $target);
+					$rePath 	= "http://" . $_SERVER["HTTP_HOST"] . $path;
+
 					if ( $mime["jenis"] === "image" ) {
-						echo "<img src='". $target . "' style='padding: 10px; width: 100%;'>";
+						echo "<img src='". $rePath . "' class='dir-preview'>";
 					}
 					else if ( $mime["jenis"] === "audio" ) {
-						echo "<audio src='". $target . "' style='padding: 10px; width: 100%;' controls>";
+						echo "<audio src='". $rePath . "' class='dir-preview' controls>";
 					}
 					else if ( $mime["jenis"] === "video" ) {
-						echo "<video src='". $target . "' style='padding: 10px; width: 100%;' controls>";
+						echo "<video src='". $rePath . "' class='dir-preview' controls>";
 					}
 					else if ( $mime["jenis"] === "text" ) {
 						echo $Lib->convertText($file);
@@ -148,10 +154,10 @@ $sidebarRoot 	= glob("C:/xampp/htdocs/" . "*");
 		<div class="clear"></div>
 		<div class="col-2 sidebar sidebar-fixed" mode="fixed" id="sidebar-right">
 			<div class="nav-right">
-				<div class="note note-warning">
+				<div class="card-light" style="font-size: 13px;">
 					<table class="table">
 						<tr>
-							<th colspan="2">Properties</th>
+							<th colspan="2"><?= ucfirst( $Lib->exist_fileType( $getDirectory2["type"] )["jenis"] ); ?> Properties</th>
 						</tr>
 						<tr>
 							<td colspan="2">
@@ -163,8 +169,13 @@ $sidebarRoot 	= glob("C:/xampp/htdocs/" . "*");
 							</td>
 						</tr>
 						<tr>
+							<td>Type</td>
+							<td>: <?= ucfirst( $Lib->exist_fileType( $getDirectory2["type"] )["jenis"] ); ?> 
+							(<?= $Lib->exist_fileType( $getDirectory2["type"] )["exist"]; ?>)</td>
+						</tr>
+						<tr>
 							<td>Size</td>
-							<td>: <?= ceil($getDirectory2["size"] / 1000); ?>Kb</td>
+							<td>: <?= $Lib->dirSize( $getDirectory2["size"] ); ?></td>
 						</tr>
 						<tr>
 							<td>Folder</td>
