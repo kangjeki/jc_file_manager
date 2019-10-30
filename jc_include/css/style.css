@@ -114,9 +114,28 @@
 /*Index*/
 #index .list-dir {
 	border: 1px #ddd solid;
-	box-sizing: border-box;
-	overflow: auto;
+	box-sizing: content-box;
+	display: flex;
 }
 #index .file-link {
 	display: flex;
+}
+
+#out {
+	background: #eee;
+	padding: 5px;
+	width: 100%;
+}
+#out code {
+	word-break: normal;
+	margin-top: 10px;
+}
+#out code .cb {
+	color: #3D39AA;
+}
+#out code .cl {
+	color: #3C8AC7;
+}
+#out code .co {
+	color: #D16B10;
 }

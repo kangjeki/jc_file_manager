@@ -1,7 +1,7 @@
 function jc_app() {
 	let reStrucLayout = function() {
 		const 	header 		= query('.header'),
-				sidebar 	= query('.sidebar'),
+				sidebar 	= queryAll('.sidebar'),
 				container 	= query('.container');
 		let iW 			 	= window.innerWidth;
 		
@@ -21,35 +21,46 @@ function jc_app() {
 			};
 		};
 		if (sidebar !== null) {
-			let mode = sidebar.getAttribute('mode');
-			if (mode !== null) {
-				if (mode == "fixed") {
-					let nv = sidebar.querySelector('.nav');
-					let hH = 0;
-					if (header !== null) {
-						hH = header.clientHeight;
-					}
-					if (iW >= 767.98) {
-						let	fs = sidebar.parentElement.clientWidth;
-						sidebar.classList.add('sidebar-fixed');
-
-						let bA 			= 0;
-						let	baSelect 	= sidebar.querySelector('.bar-account');
-
-						if (baSelect !== null) {
-							bA = sidebar.querySelector('.bar-account').clientHeight;
-							baSelect .style.cssText = `top: ${hH}px; max-width: ${nv.parentElement.clientWidth}px`;
+			sidebar.forEach(function(elSidebar) {
+				let mode = elSidebar.getAttribute('mode');
+				if (mode !== null) {
+					if (mode == "fixed") {
+						let nvL = elSidebar.querySelector('.nav');
+						let nvR = elSidebar.querySelector('.nav-right');
+						let hH = 0;
+						if (header !== null) {
+							hH = header.clientHeight;
 						}
-						nv.style.cssText = `top: ${hH + bA}px; max-width: ${nv.parentElement.clientWidth}px;`;
+						if (iW >= 767.98) {
+							let	fs = elSidebar.parentElement.clientWidth;
+							elSidebar.classList.add('sidebar-fixed');
 
-						console.log('hH: ' + hH + " | ");		
+							let bA 			= 0;
+							let	baSelect 	= elSidebar.querySelector('.bar-account');
+
+							if (baSelect !== null) {
+								bA = elSidebar.querySelector('.bar-account').clientHeight;
+								baSelect .style.cssText = `top: ${hH}px; max-width: ${nvL.parentElement.clientWidth}px`;
+							}
+							if (nvL !== null) {
+								nvL.style.cssText = `top: ${hH + bA}px; max-width: ${nvL.parentElement.clientWidth}px;`;
+							}
+							if (nvR !== null) {
+								nvR.style.cssText = `top: ${hH + bA}px; max-width: ${nvR.parentElement.clientWidth}px;`;
+							}
+						}
+						else {
+							if (nvL !== null) {
+								nvL.removeAttribute('style');
+							}
+							if (nvR !== null) {
+								nvR.removeAttribute('style');
+							}
+						}
 					}
-					else {
-						nv.removeAttribute('style');
-					}
-					
-				}
-			}
+				}	
+			})
+			
 		}	
 	}
 	reStrucLayout();

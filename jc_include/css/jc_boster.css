@@ -123,6 +123,10 @@ p, h1, h2, h3, h4, h5, h6 {
 	margin: 0; padding: 0;
 	width: 100%;
 }
+.nav-right {
+	margin: 0; padding: 0;
+	width: 100%;
+}
 .nav-link {
 	margin: 0; padding: 10px;
 	text-decoration: none;
@@ -225,6 +229,12 @@ p, h1, h2, h3, h4, h5, h6 {
 .sidebar-fixed .nav {
 	position: fixed;
 	left: 0;
+	bottom: 0;
+	overflow: auto;
+}
+.sidebar-fixed .nav-right {
+	position: fixed;
+	right: 2px;
 	bottom: 0;
 	overflow: auto;
 }
