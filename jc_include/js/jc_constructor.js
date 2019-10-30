@@ -1,12 +1,17 @@
-let loc     = window.location,
-    origin  = window.location.origin,
-    search  = window.location.search,
-    pathnm  = window.location.pathname;
-
-let reHs    = search.split('='),
-	uriData = reHs[1].replace("C:/xampp/htdocs", "http://localhost");
-
 let JC_Construct = function() {
+	let loc     	= window.location,
+	    origin  	= window.location.origin,
+	    matchSrc 	= window.location.search,
+	    pathnm  	= window.location.pathname;
+
+	let uriData 		="";
+	let validURLedit 	= loc.href.search("dir=");
+	if ( validURLedit > 0 ) {
+		let reHs    = matchSrc.split('=');
+			uriData = reHs[1].replace("C:/xampp/htdocs", "http://localhost");
+	}
+
+
 	this.editFile = function(el) {
 		let target = el.parentElement.querySelector('.code-block');
 		if ( target.contentEditable == "true" ) {
