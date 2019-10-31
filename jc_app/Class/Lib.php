@@ -195,10 +195,10 @@ class Lib {
 			}
 		}
 		if ( ! isset( $dataType["jenis"] ) ) {
-			$dataType["jenis"] = "null";
+			$dataType["jenis"] = CONFIG["setting"]["default_mime_type"];
 		}
 		if ( ! isset( $dataType["exist"] ) ) {
-			$dataType["exist"] = "null";
+			$dataType["exist"] = CONFIG["setting"]["default_file_read"];
 		}
 		return $dataType;
 	}
