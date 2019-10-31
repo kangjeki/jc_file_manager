@@ -1,4 +1,4 @@
-let JC_Construct = function() {
+let JC_Construct = function(config) {
 	let loc     	= window.location,
 	    origin  	= window.location.origin,
 	    matchSrc 	= window.location.search,
@@ -8,9 +8,8 @@ let JC_Construct = function() {
 	let validURLedit 	= loc.href.search("dir=");
 	if ( validURLedit > 0 ) {
 		let reHs    = matchSrc.split('=');
-			uriData = reHs[1].replace("C:/xampp/htdocs", "http://localhost");
+			uriData = reHs[1].replace(config.path, config.protocol + config.host);
 	}
-
 
 	this.editFile = function(el) {
 		let target = el.parentElement.querySelector('.code-block');
@@ -30,13 +29,20 @@ let JC_Construct = function() {
 		let sel 	= document.getSelection();
 			sel.removeAllRanges(); //---> untuk select semua
 			sel.addRange(range); //---> untuk select semua
+			console.log(uriData);
 
 		ajax.POST({
 			url 	: "jc_include/async/edit_file/edit_file.php",
 			send 	: "file=" + uriData + "&content=" + sel.focusNode.innerText
 		}, function(res) {
-			if (res == "true") {
-				jc_alertDialog("Sukses Edit File", true);
+			if (res !== false) {
+				let response = JSON.parse(res);
+				if (response.code == 1) {
+					jc_alertDialog(response.pesan, true);
+				}
+				else {
+					jc_alertDialog(response.pesan, false);
+				}
 			}
 		});
 	}
@@ -48,7 +54,10 @@ let JC_Construct = function() {
 window.onload = function() {
 	let loadPage 	= new XMLHttpRequest();
 	loadPage.onload = function() {
-		JC_Construct();
+		// load config json
+		jc_import("config.json", function(res) {
+			JC_Construct( JSON.parse(res) );
+		});
 	}
 	loadPage.open('GET', window.location, true);
 	loadPage.send();

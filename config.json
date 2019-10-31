@@ -1,0 +1,9 @@
+{
+	"app_name" 		: "JC File Manager",
+	"path" 			: "C:/xampp/htdocs",
+	"content_path"	: "",
+	"protocol" 		: "http://",
+	"host" 			: "localhost",
+	"description" 	: "Copyright: 2019 | JC Boster Project",
+	"author"		: "JC_Programs"
+}

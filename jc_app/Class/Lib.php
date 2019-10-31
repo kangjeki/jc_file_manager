@@ -4,6 +4,13 @@
 	# Author : JC Programs
 --------------------------------------------------------------------------------------------*/
 class Lib {
+	//load config json
+	public function __construct() {
+		$pathConfig 	= (__DIR__ . "/../../config.json");
+		if ( ! defined("CONFIG") ) {
+			define("CONFIG", json_decode( file_get_contents($pathConfig), TRUE ) );
+		}
+	}
 	public function deleteDirectory($dirPath) {
 		if ( is_dir($dirPath) ) {
 			$objects = scandir($dirPath);

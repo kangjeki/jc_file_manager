@@ -1,5 +1,4 @@
 <?php
-
-$Load 	= new Includer();
+$Load 		= new Includer();
 $Load->__class();
-$Lib 	= new Lib();
+$Lib 		= new Lib();

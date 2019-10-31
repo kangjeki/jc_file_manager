@@ -6,7 +6,10 @@
 require ( dirname(__FILE__) . "/jc_app/init.php" );
 require ( dirname(__FILE__) . "/jc_app/map.php" );
 
-$Load->header("Dasboard");
+// ----------------------------------------------------------------------------------------
+if ( ! defined("CONFIG") ) { new Lib(); };
+
+$Load->header(CONFIG["app_name"]);
 $Load->containerTop();
 
 /* First Load Directory ------------------------------------------------------------------
@@ -14,8 +17,9 @@ $Load->containerTop();
 	# to load dir example = "../../directoryName"
 	# ending load not use "/"
 	# This cant access parent directory host
+	# all default config json
 -------------------------------------------------------------------------------------------*/
-const PATH 		= ""; // set first directory load on content here 
+const PATH 		= CONFIG["content_path"]; // set first directory load on content 
 
 // Set Default Directory Path --------------
 $uriLoad 		= PATH;
@@ -28,15 +32,10 @@ $getDirectory 	= $Lib->directoryInfo( $uriLoad );
 
 // Root Sidebar Hirarky Menu -------------------------------------------------------------
 // change if you use other server
-$pathSidebar 	= "C:/xampp/htdocs";
+$pathSidebar 	= CONFIG["path"];
 $sidebarRoot 	= glob( $pathSidebar . "/*");
 
 ?>
-
-<style type="text/css">
-	
-</style>
-
 
 <div id="index">
 	<div class="row">
@@ -126,7 +125,7 @@ $sidebarRoot 	= glob( $pathSidebar . "/*");
 
 					// if this part is error try to combin with your serve
 					$path 		= str_replace($pathSidebar, '', $target);
-					$rePath 	= "http://" . $_SERVER["HTTP_HOST"] . $path;
+					$rePath 	= CONFIG["protocol"] . $_SERVER["HTTP_HOST"] . $path;
 
 					if ( $mime["jenis"] === "image" ) {
 						echo "<img src='". $rePath . "' class='dir-preview'>";
