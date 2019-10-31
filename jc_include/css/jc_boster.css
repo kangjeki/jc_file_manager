@@ -1909,7 +1909,7 @@ textarea.input-control {
 	-webkit-animation-timing-function: ease-in-out;
 }
 *[contentEditable="true"] {
-	transform: scale(1.01);
+	transform: scale(1.001);
 	background: #f5f5f5f5;
 	margin: auto;
 	position: relative;

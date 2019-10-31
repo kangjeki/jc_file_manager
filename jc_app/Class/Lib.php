@@ -196,6 +196,8 @@ class Lib {
 		}
 		if ( ! isset( $dataType["jenis"] ) ) {
 			$dataType["jenis"] = "null";
+		}
+		if ( ! isset( $dataType["exist"] ) ) {
 			$dataType["exist"] = "null";
 		}
 		return $dataType;

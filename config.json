@@ -26,7 +26,7 @@
 		},
 		"extensions" :
 		[
-			["php", "html", "css", "txt", "js", "jcm", "jc", "json", "md", "xls", "sql"],
+			["php", "html", "css", "txt", "js", "jcm", "jc", "json", "md", "xls", "sql", "doc"],
 			["wav", "mp3", "oog"],
 			["mp4", "avi", "3gp", "webm"],
 			["jpg", "jpeg", "png"],
