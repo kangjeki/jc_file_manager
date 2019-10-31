@@ -192,11 +192,11 @@ class Lib {
 					$dataType["jenis"]= $jenis[$key];
 					$dataType["exist"]= $type;
 				}
-				else {
-					$dataType["jenis"]= "null";
-					$dataType["exist"]= "null";
-				}
 			}
+		}
+		if ( ! isset( $dataType["jenis"] ) ) {
+			$dataType["jenis"] = "null";
+			$dataType["exist"] = "null";
 		}
 		return $dataType;
 	}
