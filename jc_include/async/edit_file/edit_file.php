@@ -1,4 +1,5 @@
 <?php
+
 require ( dirname(__FILE__) . "/../../../jc_app/init.php" );
 require ( dirname(__FILE__) . "/../../../jc_app/map.php" );
 
@@ -20,29 +21,32 @@ for($i = 0; $i < count($renderPath); $i++) {
 	$simPat .= "../";
 }
 
-// def file 
-$def 	= file_get_contents($simPat . $pathHttp);
+// def file
+if (file_exists( $simPat . $pathHttp ) ) {
+	$def 	= file_get_contents($simPat . $pathHttp);
 
-// save file
-$save 	= file_put_contents($simPat . $pathHttp, $content);
+	// save file
+	$save 	= file_put_contents($simPat . $pathHttp, $content);
 
-// response
-if ( ! $save ) {
-	echo json_encode(["code" => 0, "pesan" => "Gagal! Edit File"]);
-}
-else {
-	$char 	= "";
-	if ( (int)strlen($content) == (int)strlen($def) ) {
-		$char .= "0 Chacter Dirubah";
-	}
-	else if ( (int)strlen($content) > (int)strlen($def) ) {
-		$char .= (string)( (int)strlen($content) - (int)strlen($def) ) . " Chacter Dirubah";
+	// response
+	if ( ! $save ) {
+		echo json_encode(["code" => 0, "pesan" => "Gagal! Edit File"]);
 	}
 	else {
-		$char .= (string)( (int)strlen($def) - (int)strlen($content) ) . " Chacter Dirubah";
+		$char 	= "";
+		if ( (int)strlen($content) == (int)strlen($def) ) {
+			$char .= "0 Chacter Dirubah";
+		}
+		else if ( (int)strlen($content) > (int)strlen($def) ) {
+			$char .= (string)( (int)strlen($content) - (int)strlen($def) ) . " Chacter Dirubah";
+		}
+		else {
+			$char .= (string)( (int)strlen($def) - (int)strlen($content) ) . " Chacter Dirubah";
+		}
+		echo json_encode(["code" => 1, "pesan" => "Sukses Edit, " . $char]);
 	}
-	echo json_encode(["code" => 1, "pesan" => "Sukses Edit, " . $char]);
 }
-
-
+else {
+	echo json_encode(["code" => 0, "pesan" => "Gagal! File Not Hosted"]);
+}
 

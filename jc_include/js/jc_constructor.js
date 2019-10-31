@@ -29,7 +29,6 @@ let JC_Construct = function(config) {
 		let sel 	= document.getSelection();
 			sel.removeAllRanges(); //---> untuk select semua
 			sel.addRange(range); //---> untuk select semua
-			console.log(uriData);
 
 		ajax.POST({
 			url 	: "jc_include/async/edit_file/edit_file.php",
@@ -43,6 +42,9 @@ let JC_Construct = function(config) {
 				else {
 					jc_alertDialog(response.pesan, false);
 				}
+			}
+			else if (res !== false) {
+				console.log(res);
 			}
 		});
 	}
