@@ -12,7 +12,7 @@ $renderPath	= explode("/", $_SERVER["PHP_SELF"]);
 array_shift($renderPath); array_pop($renderPath);
 
 // replace host root file edit
-$pathHttp 	= str_replace( CONFIG["protocol"] . CONFIG["host"] . "/", "", $file );
+$pathHttp 	= str_replace( CONFIG["setting"]["protocol"] . CONFIG["setting"]["host"] . "/", "", $file );
 
 // set sum access dir
 $simPat 	= "";

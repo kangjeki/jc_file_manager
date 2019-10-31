@@ -16,10 +16,9 @@ $Load->containerTop();
 	# PATH = "" => default access parent Directory
 	# to load dir example = "../../directoryName"
 	# ending load not use "/"
-	# This cant access parent directory host
 	# all default config json
 -------------------------------------------------------------------------------------------*/
-const PATH 		= CONFIG["content_path"]; // set first directory load on content 
+const PATH 		= CONFIG["setting"]["content_path"]; // set first directory load on content 
 
 // Set Default Directory Path --------------
 $uriLoad 		= PATH;
@@ -32,7 +31,7 @@ $getDirectory 	= $Lib->directoryInfo( $uriLoad );
 
 // Root Sidebar Hirarky Menu -------------------------------------------------------------
 // change if you use other server
-$pathSidebar 	= CONFIG["path"];
+$pathSidebar 	= CONFIG["setting"]["path"];
 $sidebarRoot 	= glob( $pathSidebar . "/*");
 
 ?>
@@ -125,7 +124,7 @@ $sidebarRoot 	= glob( $pathSidebar . "/*");
 
 					// if this part is error try to combin with your serve
 					$path 		= str_replace($pathSidebar, '', $target);
-					$rePath 	= CONFIG["protocol"] . $_SERVER["HTTP_HOST"] . $path;
+					$rePath 	= CONFIG["setting"]["protocol"] . $_SERVER["HTTP_HOST"] . $path;
 
 					if ( $mime["jenis"] === "image" ) {
 						echo "<img src='". $rePath . "' class='dir-preview'>";

@@ -178,14 +178,9 @@ class Lib {
 	}
 
 	public function exist_fileType($ext) {
-		$jenis 	= [0 => "text", 1 => "audio", 2 => "video", 3 => "image", 4 => "Folder"];
-		$mime 	= [
-			["php", "html", "css", "txt", "js", "jcm", "jc", "json", "md"],
-			["wav", "mp3", "oog"],
-			["mp4", "avi", "3gp", "webm"],
-			["jpg", "jpeg", "png"],
-			["folder", "apk"]
-		];
+		// load mimeType on config
+		$jenis 		= CONFIG["mimeType"]["type"];
+		$mime 		= CONFIG["mimeType"]["extensions"];
 
 		$fileType = strtolower($ext);
 		$fileType = str_replace(".", "", $fileType);
@@ -196,7 +191,11 @@ class Lib {
 				if ( $type === $fileType ) {
 					$dataType["jenis"]= $jenis[$key];
 					$dataType["exist"]= $type;
-				}	
+				}
+				else {
+					$dataType["jenis"]= "null";
+					$dataType["exist"]= "null";
+				}
 			}
 		}
 		return $dataType;

@@ -4,11 +4,11 @@ let JC_Construct = function(config) {
 	    matchSrc 	= window.location.search,
 	    pathnm  	= window.location.pathname;
 
-	let uriData 		="";
-	let validURLedit 	= loc.href.search("dir=");
+	let reHs    = matchSrc.split('='),
+		uriData 		= "",
+		validURLedit 	= loc.href.search("dir=");
 	if ( validURLedit > 0 ) {
-		let reHs    = matchSrc.split('=');
-			uriData = reHs[1].replace(config.path, config.protocol + config.host);
+		uriData = reHs[1].replace(config.setting.path, config.setting.protocol + config.setting.host);
 	}
 
 	this.editFile = function(el) {
@@ -47,6 +47,8 @@ let JC_Construct = function(config) {
 		});
 	}
 	this.visitFile = function(el) {
+		// let dirExist 	= reHs[1].split(":");
+		// disini belum selesai .... 
 		window.open(uriData, "_blank");
 	}
 }

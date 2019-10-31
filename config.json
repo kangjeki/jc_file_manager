@@ -1,9 +1,36 @@
-{
+{	
+	"__comment"		: "ganti primary path pada setting untuk akses directory, contoh C:/xampp/htdocs",
+
 	"app_name" 		: "JC File Manager",
-	"path" 			: "C:/xampp/htdocs",
-	"content_path"	: "",
-	"protocol" 		: "http://",
-	"host" 			: "localhost",
+	"version"		: "0.0.1",
 	"description" 	: "Copyright: 2019 | JC Boster Project",
-	"author"		: "JC_Programs"
+	"author"		: "JC_Programs",
+
+	"setting" 		: 
+	{
+		"path" 					: "C:/xampp/htdocs",
+		"content_path"			: "",					
+		"protocol" 				: "http://",			
+		"host" 					: "localhost"
+	},
+
+	"mimeType" 		: 
+	{
+		"type" : 
+		{
+			"0"	: "text",
+			"1" : "audio",
+			"2" : "video",
+			"3" : "image",
+			"4" : "folder"
+		},
+		"extensions" :
+		[
+			["php", "html", "css", "txt", "js", "jcm", "jc", "json", "md"],
+			["wav", "mp3", "oog"],
+			["mp4", "avi", "3gp", "webm"],
+			["jpg", "jpeg", "png"],
+			["folder", "apk", "zip"]
+		]
+	}
 }
