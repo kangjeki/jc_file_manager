@@ -9,9 +9,10 @@ Simple Project File Manager
 Load Index File
 
 # Load Path Directory
-Scroll in Constanta PATH On index file, and replace directoryName
+setting load path directory on config.json
 
-# Note
-This not work access Parent Host Directory
+# Extensions File
+add Manual extension file in config.json if retun extension is null
+
 
 
