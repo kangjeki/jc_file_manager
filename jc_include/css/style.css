@@ -1,7 +1,3 @@
-.navbar {
-	background: #23e420  !important;
-}
-
 /*----------------------------------------------------------------------------------*/
 .fas[red] {
     color: red !important;
@@ -112,6 +108,12 @@
 
 /*----------------------------------------------------------------------------------*/
 /*Index*/
+#index {
+	font-size: 13px !important;
+}
+
+#index tab-1 { padding-left: 2em; };
+
 #index .list-dir {
 	border: 1px #ddd solid;
 	box-sizing: content-box;
@@ -129,18 +131,51 @@
 	background: #eee;
 	padding: 5px;
 	width: 100%;
+	box-sizing: border-box;
 }
-#out .code-block {
-	word-break: normal;
+#index #out .code-block {
 	padding: 10px;
 	font-size: 13px;
+	text-overflow: ellipsis;
+	word-break: normal;
+	word-wrap: break-word;
 }
-#out .code-block .cb {
+#index #out .code-block .cb {
 	color: #3D39AA;
 }
-#out .code-block .cl {
+#index #out .code-block .cl {
 	color: #3C8AC7;
 }
-#out .code-block .co {
+#index #out .code-block .co {
 	color: #D16B10;
+}
+
+/*navbar*/
+.navbar {
+	background: #CECFCE  !important;
+}
+.navbar-link {
+	color: #333;
+	font-size: 14px !important;
+}
+
+/*nav*/
+.sidebar-fixed .nav {
+	top: 50px;
+}
+.sidebar-fixed .nav-right {
+	top: 50px;
+}
+.nav-link {
+	font-size: 13px !important;
+}
+
+/*contexmenu*/
+#__contextmenu {
+	margin: 0; padding: 5px;
+	position: fixed;
+	width: 200px;
+	display: none;
+	background: #ddd;
+	box-shadow: 1px 1px 3px #555;
 }

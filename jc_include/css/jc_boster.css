@@ -230,12 +230,17 @@ p, h1, h2, h3, h4, h5, h6 {
 	position: fixed;
 	left: 0;
 	bottom: 0;
+	top: 0;
 	overflow: auto;
+	 border-right: 1px #ddd solid;
 }
 .sidebar-fixed .nav-right {
 	position: fixed;
 	right: 2px;
+	border-left: 1px #ddd solid;
 	bottom: 0;
+	top: 0;
+	width: 300px;
 	overflow: auto;
 }
 
@@ -1909,7 +1914,6 @@ textarea.input-control {
 	-webkit-animation-timing-function: ease-in-out;
 }
 *[contentEditable="true"] {
-	transform: scale(1.001);
 	background: #f9f9f9f9;
 	margin: auto;
 	position: relative;

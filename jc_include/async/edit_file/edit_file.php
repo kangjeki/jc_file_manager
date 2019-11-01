@@ -3,7 +3,14 @@
 require ( dirname(__FILE__) . "/../../../jc_app/init.php" );
 require ( dirname(__FILE__) . "/../../../jc_app/map.php" );
 
-$content 	= $_POST["content"];
+if ( CONFIG["setting"]["text_highlight"] === true ) {
+	$content1 	= str_replace( "t#a#b", "	", $_POST["content"] );
+	$content 	= str_replace( "l#n#l", "\n", $content1);	
+}
+if ( CONFIG["setting"]["text_highlight"] === false ) {
+	$content 	= $_POST["content"];
+}
+
 $file 		= $_POST["file"];
 $Rname 		= explode("/", $file);
 $name 		= end($Rname);

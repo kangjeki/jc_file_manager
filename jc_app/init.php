@@ -2,6 +2,7 @@
 /*	----------------------------------------------------------------------------------------
 	# Project Init 
 --------------------------------------------------------------------------------------------*/
+
 // Dec Directory jc_include 
 if ( !defined('INC') ) {
 	define( 'INC',  dirname(__FILE__) . '/../jc_include/' );
@@ -35,23 +36,22 @@ class Includer extends InitLoad {
 	public function __class() {
 		parent::initClass();
 	}
-
 	public function header($title) {
 		parent::constructor('header', $title);
 	}
-
 	public function containerTop() {
 		parent::containerTop();
 	}
-
 	public function containerBottom() {
 		parent::containerBottom();
 	}
-
 	public function footer() {
 		parent::constructor('footer');
 	}
 	public function footerContainer() {
 		parent::constructor('footer_container');
+	}
+	public function welcomePage() {
+		parent::constructor('welcome');
 	}
 }

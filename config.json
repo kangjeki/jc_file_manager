@@ -8,12 +8,13 @@
 
 	"setting" 		: 
 	{
-		"path" 					: "D:\\",
-		"content_path"			: "",					
+		"path" 					: "C:/xampp/htdocs",
+		"content_path"			: "default",
 		"protocol" 				: "http://",			
 		"host" 					: "localhost",
 		"default_file_read"		: "txt",
-		"default_mime_type" 	: "text"
+		"default_mime_type" 	: "text",
+		"text_highlight"		: true
 	},
 
 	"mimeType" 		: 
@@ -25,7 +26,7 @@
 			"2" : "video",
 			"3" : "image",
 			"4" : "folder",
-			"4" : "arcive"
+			"5" : "arcive"
 		},
 		"extensions" :
 		[
@@ -34,7 +35,7 @@
 			["mp4", "avi", "3gp", "webm"],
 			["jpg", "jpeg", "png"],
 			["folder"],
-			["rar", "zip", "apk", "gzip", "tar"]
+			["rar", "zip", "apk", "gzip"]
 		]
 	}
 }

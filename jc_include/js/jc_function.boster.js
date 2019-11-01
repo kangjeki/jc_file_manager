@@ -46,7 +46,7 @@ function jc_app() {
 								nvL.style.cssText = `top: ${hH + bA}px; max-width: ${nvL.parentElement.clientWidth}px;`;
 							}
 							if (nvR !== null) {
-								nvR.style.cssText = `top: ${hH + bA}px; max-width: ${nvR.parentElement.clientWidth}px; border-left: 1px #ddd solid;`;
+								nvR.style.cssText = `top: ${hH + bA}px; max-width: ${nvR.parentElement.clientWidth}px;`;
 							}
 						}
 						else {
@@ -489,6 +489,7 @@ function pageLoaderStart(ivalBack) {
 	}
 }
 pageLoaderStart(function(resIval) {
+	console.log('run...');
 	jcEvent(window, 'load', function() {
 		clearInterval(resIval);
 		query('.page-loader').style.display = "none";
@@ -530,3 +531,13 @@ jcEvent(window, 'load', function() {
 	jc_app();
 })
 
+// window.onload = function() {
+// 	let loadPage 	= new XMLHttpRequest();
+// 	loadPage.onload = function() {
+// 		// load config json
+// 		spaModel();
+// 		jc_app();
+// 	}
+// 	loadPage.open('GET', window.location, true);
+// 	loadPage.send();
+// };
