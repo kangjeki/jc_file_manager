@@ -27,6 +27,14 @@ if ( isset($_POST["delete-folder"] ) ) {
 	$Lib->deleteFolder($_POST);
 	exit();
 }
+if ( isset($_POST["delete-on-file"] ) ) {
+	$Lib->deleteOnFile($_POST);
+	exit();
+}
+if ( isset($_POST["rename-dir"] ) ) {
+	$Lib->renameDirList($_POST);
+	exit();
+}
 
 // ----------------------------------------------------------------------------------------
 $Load->header( CONFIG["app_name"] );

@@ -16,6 +16,9 @@
 		"default_mime_type" 	: "text",
 		"text_highlight"		: true
 	},
+	"plugin" 		: {
+		"text_highlight" : "JC_DefaultTextHighLight"
+	},
 
 	"mimeType" 		: 
 	{

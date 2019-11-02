@@ -11,31 +11,54 @@ class Lib {
 			define("CONFIG", json_decode( file_get_contents($pathConfig), TRUE ) );
 		}
 
-		// var get position directory
+		if ( ! defined("PLUGIN") ) {
+			define("PLUGIN", __DIR__ . "/../../jc_include/plugin/" );
+		}
+
+		// var get exist position directory
 		$this->querySTR 	= $_SERVER["QUERY_STRING"];
 		$this->contentPath 	= CONFIG["setting"]["content_path"];
 	}
 
 	// ----------------------------------------------------------------------------------------------------------
-	private function dirPosition() {
-		$renderPath	= explode("/", $_SERVER["PHP_SELF"]);
+	private function _dirPosition() {
+		$renderPath	= explode("/", $_SERVER["PHP_SELF"] );
 		array_shift($renderPath); array_pop($renderPath);
 
 		$pathHttp 	= explode( CONFIG["setting"]["path"] . "/", $this->querySTR );
 
 		$simPat 	= "";
-		for($i = 0; $i < count($renderPath); $i++) {
+		for( $i = 0; $i < count( $renderPath ); $i++ ) {
 			$simPat .= "../";
 		}
 		return $simPat . $pathHttp[1];
 	}
 
+	public function renameDirList($data) {
+		$newName 		= htmlspecialchars( $data["new-name"] );
+		$originName 	= htmlspecialchars( $data["origin-name"] ); 
+		$pathPosition 	= $this->_dirPosition();
+
+		if ( file_exists( $pathPosition . "/" . $originName ) ) {
+			$setRename 		= rename( $pathPosition . "/" . $originName, $pathPosition . "/" . $newName );
+			if ( $setRename === TRUE ) {
+				echo json_encode( ["code" => 1, "pesan" => "File ". $newName ." Success Renamed"] );
+			}
+			else {
+				echo json_encode( ["code" => 0, "pesan" => "Failed!, Reaname ". $fileName ." !"] );
+			}
+		}
+		else {
+			echo json_encode( ["code" => 0, "pesan" => "Failed!, File Name ". $originName ." not found!"] );
+		}
+	}
+
 	// ----------------------------------------------------------------------------------------------------------
 	public function createNewFile($data) {
-		$fileName 		= htmlspecialchars($data["file-name"]);
-		$pathPosition 	= $this->dirPosition();
+		$fileName 		= htmlspecialchars( $data["file-name"] );
+		$pathPosition 	= $this->_dirPosition();
 		
-		if ( strlen($this->querySTR) === 0 ) {
+		if ( strlen( $this->querySTR ) === 0 ) {
 			$reCtnPath = "";
 			if ( $this->contentPath === 0 ) {
 				$reCtnPath = $this->contentPath;
@@ -47,27 +70,27 @@ class Lib {
 			// --------------------------------------------
 			if ( ! file_exists( $reCtnPath . $fileName ) ) {
 				file_put_contents( $reCtnPath . $fileName, "JC New File");
-				echo json_encode(["code" => 1, "pesan" => "File ". $fileName ." Success Created"]);
+				echo json_encode( ["code" => 1, "pesan" => "File ". $fileName ." Success Created"] );
 			}
 			else {
-				echo json_encode(["code" => 0, "pesan" => "Failed!, File Name ". $fileName ." is Exist!"]);
+				echo json_encode( ["code" => 0, "pesan" => "Failed!, File Name ". $fileName ." is Exist!"] );
 			}
 		}
 		else {
 			if ( ! file_exists( $pathPosition . "/" . $fileName ) ) {
 				file_put_contents( $pathPosition . "/" . $fileName, "JC New File");
-				echo json_encode(["code" => 1, "pesan" => "File ". $fileName ." Success Created"]);
+				echo json_encode( ["code" => 1, "pesan" => "File ". $fileName ." Success Created"] );
 			}
 			else {
-				echo json_encode(["code" => 0, "pesan" => "Failed!, File Name ". $fileName ." is Exist!"]);
+				echo json_encode( ["code" => 0, "pesan" => "Failed!, File Name ". $fileName ." is Exist!"] );
 			}
 		}
 	}
 
 	// ----------------------------------------------------------------------------------------------------------
 	public function createNewFolder($data) {
-		$folderName 	= htmlspecialchars($data["folder-name"]);
-		$pathPosition 	= $this->dirPosition();
+		$folderName 	= htmlspecialchars( $data["folder-name"] );
+		$pathPosition 	= $this->_dirPosition();
 		
 		if ( strlen($this->querySTR) === 0 ) {
 			$reCtnPath = "";
@@ -79,31 +102,31 @@ class Lib {
 			}
 			if ( ! file_exists( $reCtnPath . $folderName ) ) {
 				mkdir( $reCtnPath . $folderName );
-				echo json_encode(["code" => 1, "pesan" => "Folder ". $folderName ." Success Created"]);
+				echo json_encode( ["code" => 1, "pesan" => "Folder ". $folderName ." Success Created"] );
 			}
 			else {
-				echo json_encode(["code" => 0, "pesan" => "Folder Name ". $folderName ." is Exist!"]);
+				echo json_encode( ["code" => 0, "pesan" => "Folder Name ". $folderName ." is Exist!"] );
 			}
 		}
 		else {
 			if ( ! file_exists( $pathPosition . "/" . $folderName ) ) {
 				mkdir( $pathPosition . "/" . $folderName );
-				echo json_encode(["code" => 1, "pesan" => "Folder ". $folderName ." Success Created"]);
+				echo json_encode( ["code" => 1, "pesan" => "Folder ". $folderName ." Success Created"] );
 			}
 			else {
-				echo json_encode(["code" => 0, "pesan" => "Folder Name ". $folderName ." is Exist!"]);
+				echo json_encode( ["code" => 0, "pesan" => "Folder Name ". $folderName ." is Exist!"] );
 			}
 		}
 	}
 
 	// ----------------------------------------------------------------------------------------------------------
-	private function deleteDirectory($dirPath) {
+	private function _deleteDirectory($dirPath) {
 		if ( is_dir($dirPath) ) {
 			$objects = scandir($dirPath);
 			foreach ( $objects as $object ) {
 				if ( $object != "." && $object !=".." ) {
 					if ( filetype( $dirPath . DIRECTORY_SEPARATOR . $object ) == "dir" ) {
-						$this->deleteDirectory($dirPath . DIRECTORY_SEPARATOR . $object);
+						$this->_deleteDirectory( $dirPath . DIRECTORY_SEPARATOR . $object );
 					} else {
 						unlink( $dirPath . DIRECTORY_SEPARATOR . $object );
 					}
@@ -122,9 +145,9 @@ class Lib {
 
 	// ----------------------------------------------------------------------------------------------------------
 	public function deleteFolder($data) {
-		$resfolderDel 	= explode( "/", htmlspecialchars( $_POST["delete-folder"] ) );
+		$resfolderDel 	= explode( "/", htmlspecialchars( $data["delete-folder"] ) );
 		$folderDelete 	= end($resfolderDel);
-		$pathPosition 	= $this->dirPosition();
+		$pathPosition 	= $this->_dirPosition();
 
 		//cek default dir content path position
 		if ( strlen($this->querySTR) === 0 ) {
@@ -137,40 +160,40 @@ class Lib {
 			}
 			// exec del
 			if ( file_exists( $reCtnPath . $folderDelete ) ) {
-				$setDel = $this->deleteDirectory( $reCtnPath . $folderDelete );
+				$setDel = $this->_deleteDirectory( $reCtnPath . $folderDelete );
 				if ( $setDel === true ) {
-					echo json_encode(["code" => 1, "pesan" => "Delete Directory Success"]);
+					echo json_encode( ["code" => 1, "pesan" => "Delete Directory ". $folderDelete ." Success"] );
 				}
 				else {
-					echo json_encode(["code" => 0, "pesan" => "ERROR, Delete Recursive!"]);
+					echo json_encode( ["code" => 0, "pesan" => "ERROR, Delete Recursive!"] );
 				}
 			}
 			else {
-				echo json_encode(["code" => 0, "pesan" => "ERROR, Directory Not Found!"]);
+				echo json_encode( ["code" => 0, "pesan" => "Faild, Directory ". $folderDelete ." Not Found!"] );
 			}
 		}
 		else {
 			// exec del
 			if ( file_exists( $pathPosition . "/" . $folderDelete ) ) {
-				$setDel = $this->deleteDirectory( $pathPosition . "/" . $folderDelete );
+				$setDel = $this->_deleteDirectory( $pathPosition . "/" . $folderDelete );
 				if ( $setDel === true ) {
-					echo json_encode(["code" => 1, "pesan" => "Delete Directory Success"]);
+					echo json_encode( ["code" => 1, "pesan" => "Delete Directory ". $folderDelete ." Success"] );
 				}
 				else {
-					echo json_encode(["code" => 0, "pesan" => "ERROR, Delete Recursive!"]);
+					echo json_encode( ["code" => 0, "pesan" => "ERROR, Delete Recursive!"] );
 				}
 			}
 			else {
-				echo json_encode(["code" => 0, "pesan" => "ERROR, Directory Not Found!"]);
+				echo json_encode( ["code" => 0, "pesan" => "Faild, Directory ". $folderDelete ." Not Found!"] );
 			}
 		}
 	}
 
 	// ----------------------------------------------------------------------------------------------------------
 	public function deleteFile($data) {
-		$resfileDel 	= explode( "/", htmlspecialchars( $_POST["delete-file"] ) );
+		$resfileDel 	= explode( "/", htmlspecialchars( $data["delete-file"] ) );
 		$fileDelete 	= end($resfileDel);
-		$pathPosition 	= $this->dirPosition();
+		$pathPosition 	= $this->_dirPosition();
 
 		//cek default dir content path position
 		if ( strlen($this->querySTR) === 0 ) {
@@ -184,21 +207,44 @@ class Lib {
 			//exec del
 			if ( file_exists( $reCtnPath . $fileDelete ) ) {
 				unlink( $reCtnPath . $fileDelete );
-				echo json_encode(["code" => 1, "pesan" => "Delete File Success"]);
+				echo json_encode( ["code" => 1, "pesan" => "Delete File ". $fileDelete ." Success"] );
 			}
 			else {
-				echo json_encode(["code" => 0, "pesan" => "ERROR, File Not Found!"]);
+				echo json_encode( ["code" => 0, "pesan" => "Faild!, File ". $fileDelete ." Not Found!"] );
 			}
 		}
 		else {
 			//exec del
 			if ( file_exists( $pathPosition . "/" . $fileDelete ) ) {
 				unlink( $pathPosition . "/" . $fileDelete );
-				echo json_encode(["code" => 1, "pesan" => "Delete File Success"]);
+				echo json_encode( ["code" => 1, "pesan" => "Delete File ". $fileDelete ." Success"] );
 			}
 			else {
-				echo json_encode(["code" => 0, "pesan" => "ERROR, File Not Found!"]);
+				echo json_encode( ["code" => 0, "pesan" => "Faild, File ". $fileDelete ." Not Found!"] );
 			}
+		}
+	}
+
+	// ----------------------------------------------------------------------------------------------------------
+	public function deleteOnFile($data) {
+		$resOnfileDel 	= explode( "/", htmlspecialchars( $data["delete-on-file"] ) );
+		$onFileDelete 	= end($resOnfileDel);
+		$pathPosition 	= $this->_dirPosition();
+
+		$fileOnLoad 	= explode( "/", $pathPosition );
+
+		if ( end($fileOnLoad) === $onFileDelete ) {
+			//exec del
+			if ( file_exists( $pathPosition ) ) {
+				unlink( $pathPosition );
+				echo json_encode( ["code" => 1, "pesan" => "Delete File ". $onFileDelete ." Success"] );
+			}
+			else {
+				echo json_encode( ["code" => 0, "pesan" => "Failed!, File ". $onFileDelete ." Not Found!"] );
+			}
+		}
+		else {
+			echo json_encode( ["code" => 0, "pesan" => "ERROR, File ". $onFileDelete ." Not Found!"] );
 		}
 	}
 
@@ -223,63 +269,28 @@ class Lib {
 	// ----------------------------------------------------------------------------------------------------------
 	public function convertText($data) {
 		if ( CONFIG["setting"]["text_highlight"] === true ) {
-			$data 	= str_replace("</", ":TA2:", $data);
-			$data 	= str_replace("<", ":TA1:", $data);
-			$data 	= str_replace(">", ":TE:", $data);
-
-			preg_match_all('!"[a-z-A-Z-0-9- -.-/]*"!', $data, $mat2);
-			foreach ($mat2[0] as $fin2) {
-				$data 	= str_replace($fin2, ':of:'.$fin2.':eof:', $data);
-			}
-			$data 	= str_replace(':of::of:', ':of:', $data);
-			$data 	= str_replace(':eof::eof:', ':eof:', $data);
-
-			preg_match_all('! [a-z-A-Z-0-9- -.-/]*=!', $data, $mat1);
-			foreach ($mat1[0] as $fin1) {
-				$data 	= str_replace($fin1, ':lf:'.$fin1.':elf:', $data);
-			}
-			$data 	= str_replace(':lf::lf:', ':lf:', $data);
-			$data 	= str_replace(':elf::elf:', ':elf:', $data);
-
-
-			preg_match_all('!:TA1:[a-z-A-Z-0-9- -.-/]*:lf:!', $data, $mat3);
-			foreach ($mat3[0] as $fin3) {
-				$re 	= str_replace(":lf:", "", $fin3);
-				$data 	= str_replace($fin3, ':bf:'.$re.':ebf::lf:', $data);
-			}
-
-			preg_match_all('!:TA2:[a-z-A-Z-0-9- -.-/]*:TE:!', $data, $mat4);
-			foreach ($mat4[0] as $fin4) {
-				$re2 	= str_replace(":TA2:", ":TA1:/", $fin4);
-				$re2 	= str_replace(":TE:", "", $re2);
-				$data 	= str_replace($fin4, ':bf:'.$re2.':ebf::TE:', $data);
-			}
-
-			$data = str_replace(":elf:", '</span>', $data);
-			$data = str_replace(":eof:", '</span>', $data);
-			$data = str_replace(":ebf:", '</span>', $data);
-
-			$data = str_replace(":lf:", '<span class="cl">', $data);
-			$data = str_replace(":of:", '<span class="co">', $data);
-			$data = str_replace(":bf:", '<span class="cb">', $data);
-
-			$data = str_replace(":TE:", '<span class="cb">></span>', $data);
-			$data = str_replace(":TA1:", '<span class="cb"><</span>', $data);
-
-
-			$data 	= str_replace("\n", "<br>", $data);
-			$hasil 	= str_replace("	", "&nbsp;", $data);
-
-			$tagAct = "div";
+			$plugin = CONFIG["plugin"]["text_highlight"];
+			require_once( PLUGIN . $plugin . "/". $plugin .".php");
+			$pluginText  	= new $plugin();
+			$hasil 			= $pluginText->start_plugin($data);
+			$style 			= "<style>" . file_get_contents( PLUGIN . $plugin . "/". $plugin .".css") . "</style>";
+			$tagAct 		= "div";
 		}
 		else if ( CONFIG["setting"]["text_highlight"] === false ) {
 			$hasil 	= $data;
 			$tagAct = "xmp";
-			//$data 	= str_replace("\n", "<br>", $data);
-			//$hasil 	= str_replace("	", "<tab-1>", $data);
 		}
-		
-		return "<div id='out'><button class='btn btn-noOut-info' onclick='editFile(this)'><i class='fas fa-edit'></i> edit</button><button class='btn btn-noOut-info' onclick='saveEditFile(this)'><i class='fas fa-save'></i> save</button><button class='btn btn-noOut-info' onclick='visitFile(this)'><i class='fas fa-eye'></i> visit open</button><div class='clear'></div><". $tagAct ." class='code-block' contenteditable='false'>" . $hasil . "</". $tagAct ."></div>";
+		$pathHapus 	= "?" . $this->querySTR;
+
+		return $style . "
+		<div id='code-layout'>
+			<button class='btn btn-noOut-info' onclick='editFile(this)'><i class='fas fa-edit'></i> edit</button>
+			<button class='btn btn-noOut-info' onclick='saveEditFile(this)'><i class='fas fa-save'></i> save</button>
+			<button class='btn btn-noOut-info' onclick='hapusFileEditable(this)' target='#modalLounch' dir='". $pathHapus ."'><i class='fas fa-trash'></i> Delete</button>
+			<button class='btn btn-noOut-info' onclick='visitFile(this)'><i class='fas fa-eye'></i> visit open</button>
+			<div class='clear'></div>
+			<". $tagAct ." class='code-block' contenteditable='false'>" . $hasil . "</". $tagAct .">
+		</div>";
 	}
 
 	// ----------------------------------------------------------------------------------------------------------
@@ -293,7 +304,7 @@ class Lib {
 			$countAccess 	= 0;
 
 	// ----------------------------------------------------------------------------------------------------------
-	private function realFileSize($path) {
+	private function _realFileSize($path) {
 		if ( ! file_exists($path) )
 		return false;
 
@@ -302,14 +313,14 @@ class Lib {
 	}
 	
 	// ----------------------------------------------------------------------------------------------------------
-	private function recursiveInfo($path) {
+	private function _recursiveInfo($path) {
 		if ( is_dir($path) === true ) {
 			$this->totalFolder += 1;
 
 			$_dir = glob($path . "/*");
 			foreach ( $_dir as $file ) {
 
-				$this->recursiveInfo($file);
+				$this->_recursiveInfo($file);
 				$reString 			= explode( $this->root, $file );
 				$dataPath 			= explode( "/", end($reString) );
 				if ( count($dataPath) == 2 ) {
@@ -318,7 +329,7 @@ class Lib {
 			}
 		}
 		else {
-			$calculate 			= $this->realFileSize($path);
+			$calculate 			= $this->_realFileSize($path);
 			$this->totalSize 	+= $calculate;
 			$this->totalFile 	+= 1;
 		}
@@ -341,14 +352,14 @@ class Lib {
 		if ( $rootName ) {
 			$this->name 		= end($rootName);
 			$this->countAccess 	= 1;
-			$this->recursiveInfo( "../" . $this->name);
+			$this->_recursiveInfo( "../" . $this->name);
 		}
 
 		else {
 			$readRoot 			= explode("/", $path);
 			$this->name 		= end($readRoot);
 			$this->countAccess 	= count($readRoot);
-			$this->recursiveInfo($path);
+			$this->_recursiveInfo($path);
 		}	
 
 		if ( is_dir( $path ) ) {

@@ -60,7 +60,6 @@ function jc_app() {
 					}
 				}	
 			})
-			
 		}	
 	}
 	reStrucLayout();

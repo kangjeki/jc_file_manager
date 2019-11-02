@@ -1,0 +1,30 @@
+#code-layout {
+	background: #ddd;
+	padding: 5px;
+	width: 100%;
+	box-sizing: border-box;
+}
+#code-layout .code-block {
+	padding: 10px;
+	font-size: 13px;
+	text-overflow: ellipsis;
+	word-break: normal;
+	word-wrap: break-word;
+	background: #333;
+}
+#code-layout .code-block {
+	color: #E9E9E9; 
+}
+#code-layout .code-block * {
+	color: #E9E9E9; 
+}
+
+#code-layout .code-block .cb {
+	color: #DA1A1A;
+}
+#code-layout .code-block .cl {
+	color: #30B2EE;
+}
+#code-layout .code-block .co {
+	color: #C98D2E;
+}

@@ -27,11 +27,23 @@ let JC_Construct = function(config) {
 	    matchSrc 	= window.location.search,
 	    pathnm  	= window.location.pathname;
 
+	let modalJudul 	= query("#modal-judul"),
+		modalBody 	= query("#modal-body"); 
+
 	let reHs    = matchSrc.split('='),
 		uriData 		= "",
 		validURLedit 	= loc.href.search("dir=");
 	if ( validURLedit > 0 ) {
 		uriData = reHs[1].replace(config.setting.path, config.setting.protocol + config.setting.host);
+	}
+	const __modalToggle = function(elPass) {
+		let modalTg 	= elPass.getAttribute('target'),
+			modalFrm 	= query(modalTg);
+			modalW 		= modalFrm.getAttribute('modal-width');
+			modalBlock 	= modalFrm.querySelector('.modal-block');
+			modalBlock.style.cssText = `max-width: ${modalW}`;
+
+		modalFrm.classList.toggle('modal-show');
 	}
 
 	this.editFile = function(el) {
@@ -98,18 +110,62 @@ let JC_Construct = function(config) {
 			}
 		});
 	}
+	this.setDeleteOnFile = function(dtURI) {
+		ajax.POST({
+			url 	: window.location.href,
+			send 	: "delete-on-file=" + dtURI
+		}, function(response) {
+			let localExist 		= window.location.href;
+			let existDirPack 	= localExist.split('/'),
+				fileName 		= existDirPack.pop();
+				dirPack 		= localExist.replace("/" + fileName, "");
+			if (response !== false) {
+				let res = JSON.parse(response);
+				if (res.code === 1) {
+					jc_alertDialog(res.pesan, true);
+					setTimeout(function() {
+						window.location.href = dirPack;
+					}, 2000);
+				}
+				else {
+					jc_alertDialog(res.pesan, false);
+				}
+			}
+		});
+	}
+	this.hapusFileEditable = function(el) {
+		__modalToggle(el);
+		let dataUri		= el.getAttribute('dir'),
+			splGetName 	= dataUri.split("/"),
+			nameIs 	 	= splGetName[splGetName.length - 1];
+
+		modalJudul.innerHTML 	= "Hapus File";
+		modalBody.innerHTML 	= "<div class='note note-danger'>Are You Sure Delete File <b>" + nameIs +"</b> ?</div>";
+		let getFooterModal 		= modalBody.parentElement.querySelector('.box-footer'),
+			existBtnDel 		= getFooterModal.querySelector('.setDelete');
+		if (existBtnDel === null) {
+			let btnDel 				= newTag('button');
+				btnDel.setAttribute('onclick', 'setDeleteOnFile("'+ dataUri +'")');
+				btnDel.classList.add('btn');
+				btnDel.classList.add('btn-danger');
+				btnDel.classList.add('setDelete');
+				btnDel.innerHTML 	= '<i class="fas fa-trash"></i> Delete';
+			getFooterModal.prepend(btnDel);	
+		}
+		else {
+			existBtnDel.removeAttribute('onclick');
+			existBtnDel.setAttribute('onclick', 'setDeleteOnFile("'+ dataUri +'")');
+		}
+	}
 	this.visitFile = function(el) {
 		// let dirExist 	= reHs[1].split(":");
 		// disini belum selesai .... 
 		window.open(uriData, "_blank");
 	}
-
-	let modalJudul 	= query("#modal-judul"),
-		modalBody 	= query("#modal-body"); 
 	this.newFile = function() {
 		modalJudul.innerHTML = "Create New File";
 		ajax.GET({
-			url 	: "jc_include/content/form_new_file.php",
+			url 	: "jc_include/async/form/form_new_file.php",
 			send 	: false
 		}, function(res) {
 			modalBody.innerHTML = res;
@@ -135,10 +191,9 @@ let JC_Construct = function(config) {
 	this.newFolder = function() {
 		modalJudul.innerHTML = "Create New Folder";
 		ajax.GET({
-			url 	: "jc_include/content/form_new_folder.php",
+			url 	: "jc_include/async/form/form_new_folder.php",
 			send 	: false
 		}, function(res) {
-			console.log(res);
 			modalBody.innerHTML = res;
 		});
 	}
@@ -166,7 +221,7 @@ let JC_Construct = function(config) {
 			let	menu 		= [];
 
 			let open 	= newTag("button");
-				open.innerHTML = '<i class="fas fa-share-square" purple></i> Open';
+				open.innerHTML = '<i class="fas fa-share-square" purple></i> open';
 				//open.append( newText("Open") );
 				open.classList.add('btn-noOut-dark');
 				open.classList.add('open');
@@ -174,17 +229,35 @@ let JC_Construct = function(config) {
 				//open.setAttribute('dir', '');
 				menu.push(open);
 
+			// let cut 	= newTag("button");
+			// 	cut.innerHTML = '<i class="fas fa-cut" green></i> cut';
+			// 	//cut.append( newText("cut") );
+			// 	cut.classList.add('btn-noOut-dark');
+			// 	cut.classList.add('cut');
+			// 	cut.setAttribute('onclick', 'cutDirList(this)');
+			// 	//cut.setAttribute('dir', '');
+			// 	menu.push(cut);
+
+			// let copy 	= newTag("button");
+			// 	copy.innerHTML = '<i class="far fa-clone" darkblue></i> copy';
+			// 	//copy.append( newText("copy") );
+			// 	copy.classList.add('btn-noOut-dark');
+			// 	copy.classList.add('copy');
+			// 	copy.setAttribute('onclick', 'copyDirList(this)');
+			// 	//copy.setAttribute('dir', '');
+			// 	menu.push(copy);
+
 			let rename 	= newTag("button");
-				rename.innerHTML = '<i class="fas fa-pencil-alt" blue></i> Rename';
+				rename.innerHTML = '<i class="fas fa-pencil-alt" blue></i> rename';
 				//rename.append( newText("Rename") );
 				rename.classList.add('btn-noOut-dark');
 				rename.classList.add('rename');
 				rename.setAttribute('onclick', 'renameDirList(this)');
-				//rename.setAttribute('dir', '');
+				rename.setAttribute('target', '#modalLounch');
 				menu.push(rename);
 
 			let edit 	= newTag("button");
-				edit.innerHTML = '<i class="fas fa-edit" green></i> Edit';
+				edit.innerHTML = '<i class="fas fa-edit" green></i> edit';
 				//edit.append( newText("Edit") );
 				edit.classList.add('btn-noOut-dark');
 				edit.classList.add('edit');
@@ -193,7 +266,7 @@ let JC_Construct = function(config) {
 				menu.push(edit);
 
 			let hapus 	= newTag("button");
-				hapus.innerHTML = '<i class="fas fa-trash" red></i> Delete';
+				hapus.innerHTML = '<i class="fas fa-trash" red></i> delete';
 				//hapus.append( newText("Delete") );
 				hapus.classList.add('btn-noOut-dark');
 				hapus.classList.add('hapus');
@@ -256,7 +329,7 @@ let JC_Construct = function(config) {
 	}
 	Contextmenu();
 
-	let actionMenu = function(frm) {
+	let actionMenu = function() {
 		this.openDirList = function(el) {
 			let dataUri	= el.getAttribute('dir');
 			let reHs    = dataUri.split('='),
@@ -268,16 +341,47 @@ let JC_Construct = function(config) {
 			window.location.href = dataUri;
 		}
 		this.renameDirList = function(el) {
-			let dataUri	= el.getAttribute('dir');
-		}
-		this.hapusDirList = function(el) {
-			let modalTg 	= el.getAttribute('target'),
-				modalFrm 	= query(modalTg);
-				modalW 		= modalFrm.getAttribute('modal-width');
-				modalBlock 	= modalFrm.querySelector('.modal-block');
-				modalBlock.style.cssText = `max-width: ${modalW}`;
+			__modalToggle(el);
+			let dataUri		= el.getAttribute('dir'),
+				splGetName 	= dataUri.split("/"),
+				nameIs 	 	= splGetName[splGetName.length - 1];
+			let	txtJudul;
 
-			modalFrm.classList.toggle('modal-show');
+			// listen class edit untuk identifikasi dir or file
+			let clsEdit 	= el.parentElement.querySelector('.edit');
+			clsEdit.style.display === "none" ? txtJudul = "Folder" : txtJudul = "File";
+			modalJudul.innerHTML 	= "Rename " + txtJudul;
+			//modalBody.innerHTML 	= "<div class='note note-danger'>Rename "+ txtJudul + " <b>" + nameIs +"</b> ?</div>";
+
+			ajax.GET({
+				url 	: "jc_include/async/form/form_rename_file.php",
+				send 	: "origin-name=" + nameIs
+			}, function(res) {
+				modalBody.innerHTML = res;
+			});
+
+		}
+		this.setRenameDirList = function(newName, originName) {
+			ajax.POST({
+				url 	: window.location.href,
+				send 	: "rename-dir=true&new-name=" + newName + "&origin-name=" + originName
+			}, function(response) {
+				if (response !== false) {
+					let res = JSON.parse(response);
+					if (res.code === 1) {
+						jc_alertDialog(res.pesan, true);
+						setTimeout(function() { refreshPage() }, 2000);
+					}
+					else {
+						jc_alertDialog(res.pesan, false);
+					}
+				}
+			});
+		}
+
+		this.hapusDirList = function(el) {
+			__modalToggle(el);
+
 			let dataUri		= el.getAttribute('dir'),
 				splGetName 	= dataUri.split("/"),
 				nameIs 	 	= splGetName[splGetName.length - 1];

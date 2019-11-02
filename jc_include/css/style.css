@@ -47,7 +47,9 @@
 .fas[black] {
     color: black !important;
 }
-
+.fas[gray] {
+	color: gray !important;
+}
 
 /*----------------------------------------------------------------------------------*/
 .footer-container {
@@ -127,28 +129,7 @@
 #index .file-link {
 	display: flex;
 }
-#out {
-	background: #eee;
-	padding: 5px;
-	width: 100%;
-	box-sizing: border-box;
-}
-#index #out .code-block {
-	padding: 10px;
-	font-size: 13px;
-	text-overflow: ellipsis;
-	word-break: normal;
-	word-wrap: break-word;
-}
-#index #out .code-block .cb {
-	color: #3D39AA;
-}
-#index #out .code-block .cl {
-	color: #3C8AC7;
-}
-#index #out .code-block .co {
-	color: #D16B10;
-}
+
 
 /*navbar*/
 .navbar {
