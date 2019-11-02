@@ -5,9 +5,23 @@
 # jc_file_manager
 Simple Project File Manager
 
-# git repository
+# git clone
 
 		$ git clone https://github.com/kangjeki/jc_file_manager.git
+
+#composer install
+create composer.json add in your dir target install
+
+	{
+		"require"		: {
+			"php": "^7.2",
+			"jc_programs/jc_file_manager": "^1.0"
+		}
+	}
+
+# CLI
+
+		composer require jc_programs/jc_file_manager
 
 # Use
 Load Index File
