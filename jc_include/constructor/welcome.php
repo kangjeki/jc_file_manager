@@ -16,7 +16,7 @@
 		<div class="note">
 			<div class="clear"></div>
 			<h4>git repository</h4>
-			<a href="">http://gihub.io/kangjeki/jc_file_manager</a>
+			<a href="https://github.com/kangjeki/jc_file_manager">https://github.com/kangjeki/jc_file_manager</a>
 		</div>
 		
 		<div class="garis"></div>
