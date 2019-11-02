@@ -34,7 +34,7 @@ if you want to load local no host, you can raplace <b>path</b> with your target 
 <br>
 example:
 
-		"path" 					: "D:\\",
+		"path" 		: "D:\\",
 <h3>Note: </h3>
 local directory non host not suport crud / <b>read only</b>
 
