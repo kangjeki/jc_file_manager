@@ -5,21 +5,27 @@
 # jc_file_manager
 Simple Project File Manager
 
+
 # git clone
 
-		$ git clone https://github.com/kangjeki/jc_file_manager.git
+		git clone https://github.com/kangjeki/jc_file_manager.git
 
-# composer
-create composer.json add in your dir target install
+# composer CLI
+1/ create composer.json add in your dir target download
+
+<b>manual create composer.json</b>
 
 	{
 		"require"		: {
-			"php": "^7.2",
 			"jc_programs/jc_file_manager": "^1.0"
 		}
 	}
 
-# CLI
+<b>create composer.json using window/CLI</b>
+
+		echo { "require": {"jc_programs/jc_file_manager": "^1.0"} } > composer.json
+
+2/ after create composer.json, next following command
 
 		composer require jc_programs/jc_file_manager
 
