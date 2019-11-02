@@ -9,7 +9,7 @@ Simple Project File Manager
 
 		$ git clone https://github.com/kangjeki/jc_file_manager.git
 
-#composer install
+# composer
 create composer.json add in your dir target install
 
 	{
