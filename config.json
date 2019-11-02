@@ -2,7 +2,7 @@
 	"__comment"		: "ganti primary path pada setting untuk akses directory, contoh C:/xampp/htdocs",
 
 	"app_name" 		: "JC File Manager",
-	"version"		: "0.0.1",
+	"version"		: "1.0",
 	"description" 	: "Copyright: 2019 | JC Boster Project",
 	"author"		: "JC_Programs",
 
