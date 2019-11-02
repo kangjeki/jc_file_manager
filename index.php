@@ -110,7 +110,7 @@ if ( strlen( $contentPath ) === 0 ) {
 		<div class="clear"></div>
 
 		<?php if ( $contentPath !== "default" ) { ?>
-			<div class="col-8">
+			<div class="col-8" id="content-center">
 				<?php
 					$Lib2			= new Lib();
 					// read directory content

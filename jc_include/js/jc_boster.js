@@ -27,6 +27,17 @@
 	Window.prototype.forwardPage = function() {
 		window.history.forward();
 	}
+	JSON.jc_identify = function(data) {
+		if ( data[0] === "{" || data[0] === "[" ) {
+			return true;	
+		}
+		if ( data[0] !== "{" || data[0] !== "[" ) {
+			return false;
+		}
+		if (data === null) {
+			return null;
+		}
+	}
 	this.ajax = {
 		GET : (cf, res) => {const xhr = new XMLHttpRequest(); xhr.onreadystatechange = function() {
 				if (xhr.readyState == 4 && xhr.status == 200) {

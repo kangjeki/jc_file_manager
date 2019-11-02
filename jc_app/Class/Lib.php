@@ -165,7 +165,7 @@ class Lib {
 					echo json_encode( ["code" => 1, "pesan" => "Delete Directory ". $folderDelete ." Success"] );
 				}
 				else {
-					echo json_encode( ["code" => 0, "pesan" => "ERROR, Delete Recursive!"] );
+					echo json_encode( ["code" => 0, "pesan" => "ERROR, Delete Recursive! Or Dir Permission Denied!"] );
 				}
 			}
 			else {
@@ -180,7 +180,7 @@ class Lib {
 					echo json_encode( ["code" => 1, "pesan" => "Delete Directory ". $folderDelete ." Success"] );
 				}
 				else {
-					echo json_encode( ["code" => 0, "pesan" => "ERROR, Delete Recursive!"] );
+					echo json_encode( ["code" => 0, "pesan" => "ERROR, Delete Recursive! Or Dir Permission Denied!"] );
 				}
 			}
 			else {

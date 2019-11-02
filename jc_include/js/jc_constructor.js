@@ -120,15 +120,20 @@ let JC_Construct = function(config) {
 				fileName 		= existDirPack.pop();
 				dirPack 		= localExist.replace("/" + fileName, "");
 			if (response !== false) {
-				let res = JSON.parse(response);
-				if (res.code === 1) {
-					jc_alertDialog(res.pesan, true);
-					setTimeout(function() {
-						window.location.href = dirPack;
-					}, 2000);
+				if ( JSON.jc_identify(response) === true ) {
+					let res = JSON.parse(response);
+					if (res.code === 1) {
+						jc_alertDialog(res.pesan, true);
+						setTimeout(function() {
+							window.location.href = dirPack;
+						}, 2000);
+					}
+					else {
+						jc_alertDialog(res.pesan, false);
+					}
 				}
 				else {
-					jc_alertDialog(res.pesan, false);
+					query("#content-center").innerHTML = response;
 				}
 			}
 		});
@@ -177,13 +182,18 @@ let JC_Construct = function(config) {
 			send 	: "create-file=true&file-name=" + val
 		}, function(response) {
 			if (response !== false) {
-				let res = JSON.parse(response);
-				if (res.code === 1) {
-					jc_alertDialog(res.pesan, true);
-					setTimeout(function() { refreshPage() }, 2000);
+				if ( JSON.jc_identify(response) === true ) {
+					let res = JSON.parse(response);
+					if (res.code === 1) {
+						jc_alertDialog(res.pesan, true);
+						setTimeout(function() { refreshPage() }, 2000);
+					}
+					else {
+						jc_alertDialog(res.pesan, false);
+					}
 				}
 				else {
-					jc_alertDialog(res.pesan, false);
+					query("#content-center").innerHTML = response;
 				}
 			}
 		});
@@ -203,13 +213,18 @@ let JC_Construct = function(config) {
 			send 	: "create-folder=true&folder-name=" + val
 		}, function(response) {
 			if (response !== false) {
-				let res = JSON.parse(response);
-				if (res.code === 1) {
-					jc_alertDialog(res.pesan, true);
-					setTimeout(function() { refreshPage() }, 2000);
+				if ( JSON.jc_identify(response) === true ) {
+					let res = JSON.parse(response);
+					if (res.code === 1) {
+						jc_alertDialog(res.pesan, true);
+						setTimeout(function() { refreshPage() }, 2000);
+					}
+					else {
+						jc_alertDialog(res.pesan, false);
+					}
 				}
 				else {
-					jc_alertDialog(res.pesan, false);
+					query("#content-center").innerHTML = response;
 				}
 			}
 		});
@@ -367,13 +382,18 @@ let JC_Construct = function(config) {
 				send 	: "rename-dir=true&new-name=" + newName + "&origin-name=" + originName
 			}, function(response) {
 				if (response !== false) {
-					let res = JSON.parse(response);
-					if (res.code === 1) {
-						jc_alertDialog(res.pesan, true);
-						setTimeout(function() { refreshPage() }, 2000);
+					if ( JSON.jc_identify(response) === true ) {
+						let res = JSON.parse(response);
+						if (res.code === 1) {
+							jc_alertDialog(res.pesan, true);
+							setTimeout(function() { refreshPage() }, 2000);
+						}
+						else {
+							jc_alertDialog(res.pesan, false);
+						}
 					}
 					else {
-						jc_alertDialog(res.pesan, false);
+						query("#content-center").innerHTML = response;
 					}
 				}
 			});
@@ -415,13 +435,18 @@ let JC_Construct = function(config) {
 				send 	: "delete-" + type.toLowerCase() + "=" + dtURI
 			}, function(response) {
 				if (response !== false) {
-					let res = JSON.parse(response);
-					if (res.code === 1) {
-						jc_alertDialog(res.pesan, true);
-						setTimeout(function() { refreshPage() }, 2000);
+					if ( JSON.jc_identify(response) === true ) {
+						let res = JSON.parse(response);
+						if (res.code === 1) {
+							jc_alertDialog(res.pesan, true);
+							setTimeout(function() { refreshPage() }, 2000);
+						}
+						else {
+							jc_alertDialog(res.pesan, false);
+						}		
 					}
 					else {
-						jc_alertDialog(res.pesan, false);
+						query("#content-center").innerHTML = response;
 					}
 				}
 			});
@@ -456,7 +481,12 @@ jcEvent(window, 'contextmenu', function(ev) {
 
 // test tanpa menunggu load
 jc_import("config.json", function(res) {
-	JC_Construct( JSON.parse(res) );
+	if ( JSON.jc_identify(res) === true ) {
+		JC_Construct( JSON.parse(res) );
+	}
+	else {
+		query("#content-center").innerHTML = "<div style='text-align: center'><h1 style='color: red'>oops..!!, Error Load File config.json</h2><br><b style='color: red'>Parsing Error..!!</b><br><p># Check Character On config.json File</p></div>";
+	}
 });
 
 //@promise after load
