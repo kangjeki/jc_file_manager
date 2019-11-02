@@ -1,8 +1,8 @@
 {
-    "name": "jc_program/jc_file_manager",
+    "name": "jc_programs/jc_file_manager",
     "description": "Copyright: 2019 | JC Boster Project",
     "require": {
-        "php": "^7.2",
-        "another-vendor/package": "1.*"
-    }
+        "php": "^7.2"
+    },
+    "license" : "jc_programs"
 }
