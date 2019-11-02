@@ -29,7 +29,7 @@
 				</tr>
 				<tr>
 					<td>version</td>
-					<td>: 0.0.1</td>
+					<td>: 1.0</td>
 				</tr>
 				<tr>
 					<td>date</td>
