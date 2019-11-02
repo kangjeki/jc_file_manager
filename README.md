@@ -21,8 +21,8 @@ open config.json
 		"content_path"			: "default",
 		"protocol" 			: "http://",			
 		"host" 				: "localhost",
-		"default_file_read"			: "txt",
-		"default_mime_type" 	: "text",
+		"default_file_read"		: "txt",
+		"default_mime_type" 		: "text",
 		"text_highlight"		: true
 	},
 
