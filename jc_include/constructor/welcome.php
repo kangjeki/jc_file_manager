@@ -17,6 +17,8 @@
 			<div class="clear"></div>
 			<h4>git repository</h4>
 			<a href="https://github.com/kangjeki/jc_file_manager">https://github.com/kangjeki/jc_file_manager</a>
+			<h4>package repository</h4>
+			<a href="https://packagist.org/packages/jc_programs/jc_file_manager">https://packagist.org/packages/jc_programs/jc_file_manager</a>
 		</div>
 		
 		<div class="garis"></div>
@@ -29,7 +31,7 @@
 				</tr>
 				<tr>
 					<td>version</td>
-					<td>: 1.0</td>
+					<td>: v1.0</td>
 				</tr>
 				<tr>
 					<td>date</td>
