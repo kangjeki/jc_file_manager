@@ -17,11 +17,11 @@ open config.json
 
 	"setting" 		: 
 	{
-		"path" 					: "C:/xampp/htdocs",
+		"path" 				: "C:/xampp/htdocs",
 		"content_path"			: "default",
-		"protocol" 				: "http://",			
-		"host" 					: "localhost",
-		"default_file_read"		: "txt",
+		"protocol" 			: "http://",			
+		"host" 				: "localhost",
+		"default_file_read"			: "txt",
 		"default_mime_type" 	: "text",
 		"text_highlight"		: true
 	},
