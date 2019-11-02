@@ -1,9 +1,5 @@
 {
     "name"			: "jc_programs/jc_file_manager",
     "description"	: "JC File Manager Simple Project JC Boster Web Component",
-    "license"		: "Apache-2.0",
-    "require"		: {
-        "php": "^7.2",
-        "jc_programs/jc_file_manager": "^1.0"
-    }
+    "license"		: "Apache-2.0"
 }
